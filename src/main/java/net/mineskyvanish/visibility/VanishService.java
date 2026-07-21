@@ -78,7 +78,7 @@ public final class VanishService implements MineSkyVanishAPI {
             return false;
         }
 
-        if (viewer.hasPermission("stealthvanish.see")) {
+        if (viewer.hasPermission("mienskyvanish.see")) {
             return true;
         }
 
@@ -136,7 +136,7 @@ public final class VanishService implements MineSkyVanishAPI {
             this.vanishedNames.put(playerId, player.getName().toLowerCase(Locale.ROOT));
             refreshVanishedPlayer(playerId);
             if (notifyActor) {
-                player.sendMessage(Component.text("Stealth enabled. Regular players saw you leave.", NamedTextColor.GREEN));
+                player.sendMessage(Component.text("Vanish enabled. Regular players saw you leave.", NamedTextColor.GREEN));
             }
             sendFakeQuit(player);
             return true;
@@ -145,7 +145,7 @@ public final class VanishService implements MineSkyVanishAPI {
         this.vanishedNames.remove(playerId);
         refreshRevealedPlayer(playerId);
         if (notifyActor) {
-            player.sendMessage(Component.text("Stealth disabled. Regular players saw you join.", NamedTextColor.YELLOW));
+            player.sendMessage(Component.text("Vansih disabled. Regular players saw you join.", NamedTextColor.YELLOW));
         }
         sendFakeJoin(player);
         return true;
@@ -240,7 +240,7 @@ public final class VanishService implements MineSkyVanishAPI {
             try {
                 viewer.getScheduler().execute(this.plugin, () -> {
                     try {
-                        if (!viewer.getUniqueId().equals(actorId) && !viewer.hasPermission("stealthvanish.see")) {
+                        if (!viewer.getUniqueId().equals(actorId) && !viewer.hasPermission("mienskyvanish.see")) {
                             viewer.sendMessage(message);
                         }
                     } catch (RuntimeException exception) {

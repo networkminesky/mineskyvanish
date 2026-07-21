@@ -40,18 +40,18 @@ public final class MineSkyVanish extends JavaPlugin {
 
         runStartupCompatibilityAutomation();
 
-        VanishCommand stealthCommand = new VanishCommand(this.vanishService);
-        PluginCommand command = Objects.requireNonNull(getCommand("stealth"), "Command /stealth missing from plugin.yml");
-        command.setExecutor(stealthCommand);
-        command.setTabCompleter(stealthCommand);
+        VanishCommand vanishCommand = new VanishCommand(this.vanishService);
+        PluginCommand command = Objects.requireNonNull(getCommand("vanish"), "Comando /vanish faltando na plugin.yml");
+        command.setExecutor(vanishCommand);
+        command.setTabCompleter(vanishCommand);
 
         getServer().getPluginManager().registerEvents(new PlayerVisibilityListener(this.vanishService), this);
         getServer().getPluginManager().registerEvents(new ServerPingPresenceListener(this.vanishService), this);
         getServer().getPluginManager().registerEvents(new TabCompletePresenceListener(this.vanishService), this);
         getServer().getPluginManager().registerEvents(new PlayerCommandRespectGuard(this, this.vanishService, this.diagnostics), this);
         getServer().getServicesManager().register(MineSkyVanishAPI.class, this.vanishService, this, ServicePriority.Normal);
-        getLogger().info("StealthVanish enabled with " + this.vanishService.vanishedCount() + " persisted vanished player(s).");
-        getLogger().info("StealthVanish diagnostics: " + this.diagnostics.debugFile());
+        getLogger().info("MineSkyVanish enabled with " + this.vanishService.vanishedCount() + " persisted vanished player(s).");
+        getLogger().info("MineSkyVanish diagnostics: " + this.diagnostics.debugFile());
     }
 
     private void runStartupCompatibilityAutomation() {

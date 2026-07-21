@@ -34,23 +34,23 @@ public final class CompatibilityProbeService {
         List<String> reasons = new ArrayList<>();
         int score = 0;
 
-        lines.add("$ stealth-presence auto-probe");
+        lines.add("$ vanish-presence auto-probe");
         lines.add("mode=startup; no lifecycle internals touched; no fake quit event fired");
         lines.add("plugin=" + this.plugin.getDescription().getName() + " " + this.plugin.getDescription().getVersion());
         lines.add("server=" + Bukkit.getName() + " " + Bukkit.getVersion());
         lines.add("online-players-now=" + Bukkit.getOnlinePlayers().size());
 
         score += probeDataFolder(lines, reasons, this.plugin.getDataFolder().toPath());
-        score += probeCommand(lines, reasons, "Command /stealth", "stealth", true);
+        score += probeCommand(lines, reasons, "Command /vanish", "vanish", true);
         score += probeMethod(lines, reasons, "Public VanishAPI.isInvisible(Player)", VanishAPI.class, "isInvisible", true, Player.class);
         score += probeMethod(lines, reasons, "Public VanishAPI.hidePlayer(Player)", VanishAPI.class, "hidePlayer", true, Player.class);
         score += probeMethod(lines, reasons, "Public VanishAPI.showPlayer(Player)", VanishAPI.class, "showPlayer", true, Player.class);
         score += probeMethod(lines, reasons, "Public VanishAPI.isInvisible(String)", VanishAPI.class, "isInvisible", true, String.class);
         score += probeMethod(lines, reasons, "Public VanishAPI.shouldHideNameFrom(CommandSender,String)", VanishAPI.class, "shouldHideNameFrom", true, org.bukkit.command.CommandSender.class, String.class);
-        score += probeMethod(lines, reasons, "Service StealthVanishApi.isInvisible(UUID)", MineSkyVanishAPI.class, "isInvisible", true, UUID.class);
-        score += probeMethod(lines, reasons, "Service StealthVanishApi.hidePlayer(Player)", MineSkyVanishAPI.class, "hidePlayer", true, Player.class);
-        score += probeMethod(lines, reasons, "Service StealthVanishApi.showPlayer(Player)", MineSkyVanishAPI.class, "showPlayer", true, Player.class);
-        score += probeMethod(lines, reasons, "Service StealthVanishApi.isInvisibleName(String)", MineSkyVanishAPI.class, "isInvisibleName", true, String.class);
+        score += probeMethod(lines, reasons, "Service MineSkyVanishApi.isInvisible(UUID)", MineSkyVanishAPI.class, "isInvisible", true, UUID.class);
+        score += probeMethod(lines, reasons, "Service MineSkyVanishApi.hidePlayer(Player)", MineSkyVanishAPI.class, "hidePlayer", true, Player.class);
+        score += probeMethod(lines, reasons, "Service MineSkyVanishApi.showPlayer(Player)", MineSkyVanishAPI.class, "showPlayer", true, Player.class);
+        score += probeMethod(lines, reasons, "Service MineSkyVanishApi.isInvisibleName(String)", MineSkyVanishAPI.class, "isInvisibleName", true, String.class);
         score += probeCommandGuardConfig(lines, reasons);
         score += probeClass(lines, reasons, "Folia EntityScheduler API", "io.papermc.paper.threadedregions.scheduler.EntityScheduler", true);
         score += probeMethod(lines, reasons, "Bukkit hidePlayer API", Player.class, "hidePlayer", true, Plugin.class, Player.class);

@@ -16,7 +16,7 @@ public final class TabCompletePresenceListener implements Listener {
     @EventHandler
     public void onTabComplete(TabCompleteEvent event) {
         CommandSender sender = event.getSender();
-        if (sender.hasPermission("stealthvanish.see")) {
+        if (sender.hasPermission("mienskyvanish.see")) {
             return;
         }
 

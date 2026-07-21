@@ -32,7 +32,7 @@ public final class DiagnosticRecorder {
     @SuppressWarnings("deprecation")
     public synchronized void startNewRun() {
         List<String> header = List.of(
-                "# StealthVanish adaptive presence diagnostics",
+                "# mienskyvanish adaptive presence diagnostics",
                 "# This file is rewritten on startup and appended to when optional surfaces fail.",
                 "# It records public-API probes and runtime failure points only; it does not touch NMS, CraftBukkit, or packets.",
                 "time=" + Instant.now(),

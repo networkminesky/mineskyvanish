@@ -38,7 +38,7 @@ public final class VanishCommand implements CommandExecutor, TabCompleter {
         }
 
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text("Console usage: /stealth <on|off|toggle|status> <player>", NamedTextColor.RED));
+            sender.sendMessage(Component.text("Console usage: /vanish <on|off|toggle|status> <player>", NamedTextColor.RED));
             return true;
         }
 
@@ -46,7 +46,7 @@ public final class VanishCommand implements CommandExecutor, TabCompleter {
     }
 
     private boolean handleOther(CommandSender sender, String mode, String targetName) {
-        if (!sender.hasPermission("stealthvanish.command.others")) {
+        if (!sender.hasPermission("mineskyvanish.command.others")) {
             sender.sendMessage(Component.text("You do not have permission to vanish other players.", NamedTextColor.RED));
             return true;
         }
@@ -116,7 +116,7 @@ public final class VanishCommand implements CommandExecutor, TabCompleter {
     }
 
     private void sendUsage(CommandSender sender) {
-        sendFeedback(sender, Component.text("Usage: /stealth [on|off|toggle|status] [player]", NamedTextColor.RED));
+        sendFeedback(sender, Component.text("Usage: /vanish [on|off|toggle|status] [player]", NamedTextColor.RED));
     }
 
     private void sendFeedback(CommandSender sender, Component message) {
@@ -141,7 +141,7 @@ public final class VanishCommand implements CommandExecutor, TabCompleter {
             return filter(MODES, args[0]);
         }
 
-        if (args.length == 2 && sender.hasPermission("stealthvanish.command.others")) {
+        if (args.length == 2 && sender.hasPermission("mineskyvanish.command.others")) {
             List<String> names = Bukkit.getOnlinePlayers().stream()
                     .filter(player -> this.vanishService.canSee(sender, player.getUniqueId()))
                     .map(Player::getName)
