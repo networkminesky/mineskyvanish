@@ -1,27 +1,51 @@
 name: MineSkyVanish
-version: '${version}'
+version: '1.0.0'
 
-main: net.mineskyvanish.MineSkyVanish
-api-version: '26.2'
+main: net.mineskyvanish.plugin.MineSkyVanish
+api-version: '26.1'
 load: POSTWORLD
 folia-supported: true
 
+softdepend:
+  - ProtocolLib
+  - Essentials
+  - PlaceholderAPI
+  - Vault
+  - OpenInv
 commands:
-  vanish:
-    description: Toggle vanish mode.
-    usage: /vanish [on|off|toggle|status|capabilities] [player]
-    permission: stealthvanish.command
-    aliases:
-      - msvanish
-      - v
-
+  msv:
+    usage: /vanish
+    description: mineskyvanish's main command
+    aliases: [mineskyvanish, v, vanish]
 permissions:
-  mineskyvanish.command:
-    description: Allows using /stealth for yourself.
-    default: op
-  mineskyvanish.command.others:
-    description: Allows toggling vanish for another online player.
-    default: op
+  mineskyvanish.*:
+    children:
+      mineskyvanish.use: true
+      mineskyvanish.see: true
+      mineskyvanish.reload: true
+      mineskyvanish.logout: true
+      mineskyvanish.login: true
+      mineskyvanish.others: true
+      mineskyvanish.list: true
+      mineskyvanish.keepfly: true
+      mineskyvanish.toggleitems: true
+      mineskyvanish.recreatefiles: true
+      mineskyvanish.notoggle: true
+      mineskyvanish.joinvanished: true
+      mineskyvanish.notify: true
+      mineskyvanish.breakblocks: true
+      mineskyvanish.placeblocks: true
+      mineskyvanish.damage: true
+      mineskyvanish.stacktrace: true
+      mineskyvanish.silentchest: true
+    description: Grants you all MineSkyVanish permissions
   mineskyvanish.see:
-    description: Allows seeing vanished players and real join/quit state.
-    default: op
+    description: You can see other vanished players
+  mineskyvanish.notoggle:
+    description: Other players cannot hide/show you if you're online
+  mineskyvanish.keepfly:
+    description: You can always keep flying when you reappear
+  mineskyvanish.joinvanished:
+    description: You always join vanished (must be enabled in config)
+  mineskyvanish.silentchest:
+    description: You can open chests silently
