@@ -1,0 +1,27 @@
+# MineSkyVanish keeps its core API-only and Folia-safe.
+# These settings control optional "respect surfaces" that help other plugins
+# behave as if vanished players are unavailable without touching server internals.
+
+respect:
+  command-guard:
+    # Cancels common player-targeting commands before another plugin handles them
+    # when the target is vanished and the sender lacks stealthvanish.see.
+    enabled: true
+    blocked-message: "That player is not online."
+    scan-all-commands:
+      # After known command patterns are checked, scan every other command for
+      # exact vanished-name tokens. This catches custom plugin commands without
+      # needing a dedicated pattern for each plugin.
+      enabled: true
+      ignored-command-roots:
+        - "msvanish"
+        - "vanish"
+        - "v"
+    patterns:
+      # Private-message style commands.
+      - "^/(?:msg|tell|w|whisper|pm|emsg|etell|ew|essentials:msg|essentials:tell|essentials:w|minecraft:msg|minecraft:tell|minecraft:w|bukkit:msg|bukkit:tell|bukkit:w)\\s+(?<target>[A-Za-z0-9_]{3,16})(?:\\s|$)"
+      # Teleport-request style commands.
+      - "^/(?:tpa|tpask|call|etpa|essentials:tpa)\\s+(?<target>[A-Za-z0-9_]{3,16})(?:\\s|$)"
+      - "^/(?:tpahere|tphere|etpahere|essentials:tpahere)\\s+(?<target>[A-Za-z0-9_]{3,16})(?:\\s|$)"
+      # Economy/social commands that commonly expose online targets.
+      - "^/(?:pay|epay|essentials:pay|friend|party invite|party add)\\s+(?<target>[A-Za-z0-9_]{3,16})(?:\\s|$)"

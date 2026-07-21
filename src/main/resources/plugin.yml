@@ -1,0 +1,27 @@
+name: MineSkyVanish
+version: '${version}'
+
+main: net.mineskyvanish.MineSkyVanish
+api-version: '26.2'
+load: POSTWORLD
+folia-supported: true
+
+commands:
+  vanish:
+    description: Toggle vanish mode.
+    usage: /vanish [on|off|toggle|status|capabilities] [player]
+    permission: stealthvanish.command
+    aliases:
+      - msvanish
+      - v
+
+permissions:
+  mineskyvanish.command:
+    description: Allows using /stealth for yourself.
+    default: op
+  mineskyvanish.command.others:
+    description: Allows toggling vanish for another online player.
+    default: op
+  mineskyvanish.see:
+    description: Allows seeing vanished players and real join/quit state.
+    default: op
