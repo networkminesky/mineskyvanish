@@ -79,15 +79,17 @@ public abstract class PlayerHider implements Listener {
 
             @EventHandler(priority = EventPriority.MONITOR)
             public void onQuit(final PlayerQuitEvent e) {
-                plugin.getServer().getScheduler().runTaskLater(plugin, new Runnable() {
-                    @Override
-                    public void run() {
-                        playerHiddenFromPlayersMap.remove(e.getPlayer());
-                        for (Player p : ImmutableSet.copyOf(playerHiddenFromPlayersMap.keySet())) {
-                            playerHiddenFromPlayersMap.get(p).remove(e.getPlayer());
+                Runnable cleanupTask = () -> {
+                    playerHiddenFromPlayersMap.remove(e.getPlayer());
+                    for (Player p : ImmutableSet.copyOf(playerHiddenFromPlayersMap.keySet())) {
+                        Set<Player> viewers = playerHiddenFromPlayersMap.get(p);
+                        if (viewers != null) {
+                            viewers.remove(e.getPlayer());
                         }
                     }
-                }, 1);
+                };
+
+                plugin.getServer().getGlobalRegionScheduler().runDelayed(plugin, task -> cleanupTask.run(), 1L);
             }
         }, plugin);
     }

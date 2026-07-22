@@ -127,7 +127,7 @@ public class MineSkyVanish extends JavaPlugin implements MineSkyVanishPlugin {
     }
 
     public void reload() {
-        getServer().getScheduler().cancelTasks(this);
+        getServer().getAsyncScheduler().cancelTasks(this);
         HandlerList.unregisterAll(this);
         if (useProtocolLib)
             ProtocolLibrary.getProtocolManager().removePacketListeners(this);

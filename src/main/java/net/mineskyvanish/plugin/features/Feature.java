@@ -23,6 +23,6 @@ public abstract class Feature implements Listener {
     public abstract boolean isActive();
 
     protected void delay(Runnable runnable) {
-        plugin.getServer().getScheduler().runTaskLater(plugin, runnable, 1);
+        plugin.getServer().getGlobalRegionScheduler().runDelayed(plugin, task -> runnable.run(), 1L);
     }
 }

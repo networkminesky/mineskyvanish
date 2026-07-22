@@ -1,27 +1,27 @@
-# MineSkyVanish v1.0.0 - Mensagens
+# MineskyVanish v1.0.0 - Mensagens
 #
 # Informações:
 # <..> significa que .. é obrigatório; [..] significa que .. é opcional e pode ser omitido; | dentro de [] ou <> significa 'OU'
-# Você pode usar o caractere & para códigos de cor; Exemplo: '&cA cor deste texto seria vermelho!'
-# Você pode usar #XXXXXX para códigos de cor HEX. Exemplo: '#663EF6Este texto seria roxo!'
+# Você pode usar o caractere & para códigos de cores; Exemplo: '&cA cor deste texto seria vermelha!'
+# Você pode usar #XXXXXX para códigos de cores HEX. Exemplo: '#663EF6Este texto seria roxo!'
 # Você pode usar %p% para obter o nome do jogador; Exemplo: '&4&l%p%, você não tem permissão para executar este comando!'
 # Você pode usar %other% para obter o nome do alvo ou da causa
-# Você pode usar %d% para obter o nome de exibição do jogador; se você usa Essentials, o nome de exibição também contém o prefixo
+# Você pode usar %d% para obter o nome de exibição do jogador; se você usar o Essentials, o nome de exibição também conterá o prefixo
 # Você pode usar %tab% para obter o nome do jogador na lista de jogadores (TAB)
 # Você pode usar %prefix% para obter o prefixo do jogador (Requer Vault)
 # Você pode usar %suffix% para obter o sufixo do jogador (Requer Vault)
-# Você pode usar %group% para obter o grupo do jogador (Requer Vault)
+# Você pode usar %group% to para obter o grupo do jogador (Requer Vault)
 # Você pode usar %nick% para obter o apelido do jogador (Requer Essentials)
 # Algumas mensagens também permitem variáveis diferentes e exclusivas
 #
-# NOTA: Você pode obter MUITO mais placeholders instalando PlaceholderAPI ou MVdWPlaceholderAPI
+# NOTA: Você pode obter MUITO mais placeholders instalando o PlaceholderAPI ou MVdWPlaceholderAPI
 #
 # Mensagens vazias não serão enviadas
 # Usar \n inicia uma nova linha
 #
 # Importante:
-# Você deve duplicar as aspas simples se quiser usá-las dentro de uma mensagem.
-# Você NÃO deve usar caracteres de tabulação dentro deste arquivo (chave de indentação), caso contrário, o YAML inundará seu console com erros!
+# Você deve dobrar as aspas simples se quiser usá-las dentro de uma mensagem (ex: '').
+# Você NÃO DEVE usar nenhum caractere de tabulação (tecla tab) dentro deste arquivo, caso contrário o YAML encherá seu console de erros!
 # !! Se houver erros no console após editar este arquivo, cole-o em um analisador YAML online para ver se
 # há algum erro de sintaxe YAML !!
 Messages:
@@ -29,12 +29,12 @@ Messages:
   InvalidUsage: '&cUso inválido, você pode usar &6/msv help&c para uma lista de comandos.'
   VanishMessage: '&e%p% saiu do jogo'
   ReappearMessage: '&e%p% entrou no jogo'
-  VanishMessageWithPermission: '&a[MSV] %p% desapareceu.'
+  VanishMessageWithPermission: '&a[MSV] %p% ficou invisível.'
   ReappearMessageWithPermission: '&a[MSV] %p% reapareceu.'
-  OnVanish: '&aVocê está invisível agora!'
+  OnVanish: '&aVocê agora está invisível!'
   OnReappear: '&aVocê não está mais invisível!'
-  OnVanishCausedByOtherPlayer: '&a%other% te escondeu, você está invisível agora!'
-  OnReappearCausedByOtherPlayer: '&a%other% te mostrou, você está visível agora!'
+  OnVanishCausedByOtherPlayer: '&a%other% ocultou você, você agora está invisível!'
+  OnReappearCausedByOtherPlayer: '&a%other% revelou você, você agora está visível!'
   AlreadyVanishedError: '&cVocê já está invisível!'
   NotVanishedError: '&cVocê não está invisível!'
   SilentJoinMessageForAdmins: '&a[MSV] %p% entrou silenciosamente.'
@@ -42,34 +42,34 @@ Messages:
   SilentDeathMessage: '&a[MSV] %deathmsg%'
   RemindingMessage: '&aVocê ainda está invisível!'
   ListMessagePrefix: '&aJogadores Invisíveis:&f %l'
-  ActionBarMessage: '&aVocê está invisível para outros jogadores!'
-  HideOtherMessage: '&aO jogador &e%other%&a está invisível agora!'
-  ShowOtherMessage: '&aO jogador &e%other%&a está visível agora!'
-  CannotHideOtherPlayer: '&cVocê não tem permissão para mudar a visibilidade de %other%!'
+  ActionBarMessage: '&aVocê está invisível para os outros jogadores!'
+  HideOtherMessage: '&aO jogador &e%other%&a agora está invisível!'
+  ShowOtherMessage: '&aO jogador &e%other%&a agora está visível!'
+  CannotHideOtherPlayer: '&cVocê não tem permissão para alterar a visibilidade de %other%!'
   AlreadyInvisibleMessage: '&cO jogador &e%other%&c já está invisível!'
   AlreadyVisibleMessage: '&cO jogador &e%other%&c já está visível!'
-  PluginReloaded: '&aSuperVanish recarregado com sucesso (%time%ms)!'
+  PluginReloaded: '&aMineskyVanish recarregado com sucesso (%time%ms)!'
   InvalidSender: '&cVocê deve ser um jogador para executar este comando!'
   PlayerNotOnline: '&cEsse jogador não está online!'
   PlayerNonExistent: '&cEsse jogador não existe!'
-  ToggledPickingUpItemsOn: '&eA coleta de itens está agora &aLIGADA&e.'
-  ToggledPickingUpItemsOff: '&eA coleta de itens está agora &cDESLIGADA&e.'
-  UpdateWarning: '&cAviso! Recriar %updates% redefine %changes%. Por favor, use &e/msv recreatefiles confirm&c se deseja continuar.'
+  ToggledPickingUpItemsOn: '&eA coleta de itens agora está &aLIGADA&e.'
+  ToggledPickingUpItemsOff: '&eA coleta de itens agora está &cDESLIGADA&e.'
+  UpdateWarning: '&cAviso! Recriar %updates% redefinirá %changes%. Por favor, use &e/msv recreatefiles confirm&c se quiser continuar.'
   RecreatedConfig: '&a%updates% recriados com sucesso! Por favor, verifique %changes%.'
-  NoConfigUpdateAvailable: '&eSeus arquivos SuperVanish estão atualizados!'
-  RecreationRequiredMsg: '&c[MSV] Seus arquivos SuperVanish não estão atualizados, você pode usar &e/msv recreatefiles&c para recriá-los
-  ou usar /msv recreatefiles dismiss para dispensar esta mensagem.
-  Recriar os arquivos do SuperVanish lhe dá acesso a novas configurações e recursos do plugin.'
-  DismissedRecreationWarning: '&eVocê não está mais recebendo notificações sobre esta recriação.'
-  UndismissedRecreationWarning: '&eVocê está agora recebendo notificações sobre esta recriação.'
-  PrintedStacktrace: '&eStacktrace criado com sucesso, veja o console!'
-  EntityHitDenied: '&c[MSV] Você não pode bater em jogadores ou mobs no vanish!'
-  BlockPlaceDenied: '&c[MSV] Você não pode colocar blocos no vanish!'
-  BlockBreakDenied: '&c[MSV] Você não pode quebrar blocos no vanish!'
-  PluginOutdated: '&c[MSV] Sua versão atual do SuperVanish está desatualizada. Nova versão: ''%new%''; Atual: ''%current%'''
+  NoConfigUpdateAvailable: '&eSeus arquivos do MineskyVanish estão atualizados!'
+  RecreationRequiredMsg: '&c[MSV] Seus arquivos do MineskyVanish não estão atualizados, você pode usar &e/msv recreatefiles&c para recriá-los
+  ou usar /msv recreatefiles dismiss para descartar esta mensagem.
+  Recriar os arquivos do MineskyVanish lhe dá acesso a novas configurações e recursos do plugin.'
+  DismissedRecreationWarning: '&eVocê não receberá mais notificações sobre esta recriação.'
+  UndismissedRecreationWarning: '&eAgora você receberá notificações sobre esta recriação.'
+  PrintedStacktrace: '&eStacktrace criado com sucesso, verifique o console!'
+  EntityHitDenied: '&c[MSV] Você não pode bater em jogadores ou mobs enquanto estiver invisível!'
+  BlockPlaceDenied: '&c[MSV] Você não pode colocar blocos enquanto estiver invisível!'
+  BlockBreakDenied: '&c[MSV] Você não pode quebrar blocos enquanto estiver invisível!'
+  PluginOutdated: '&c[MSV] Sua versão atual do MineskyVanish está desatualizada. Nova versão: ''%new%''; Atual: ''%current%'''
   DynmapFakeJoin: '%d% entrou'
   DynmapFakeQuit: '%d% saiu'
-  HelpHeader: "&a<---------------&e Ajuda do SuperVanish &a--------------->"
+  HelpHeader: "&a<---------------&e Ajuda do MineskyVanish &a--------------->"
   HelpFormat: "&6%usage% &7- &b%description% &c(%permission%)"
   PlaceholderIsVanishedYes: "Sim"
   PlaceholderIsVanishedNo: "Não"

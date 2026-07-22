@@ -25,27 +25,7 @@ public class EssentialsHook extends PluginHook {
 
     private final Set<UUID> preVanishHiddenPlayers = new HashSet<>();
     private Essentials essentials;
-    private BukkitRunnable forcedInvisibilityRunnable = new BukkitRunnable() {
-
-        @Override
-        public void run() {
-            try {
-                if (!Bukkit.getPluginManager().isPluginEnabled("Essentials")) return;
-                for (UUID uuid : mineSkyVanish.getVanishStateMgr().getOnlineVanishedPlayers()) {
-                    Player p = Bukkit.getPlayer(uuid);
-                    User user = essentials.getUser(p);
-                    if (user == null) continue;
-                    if (!user.isHidden())
-                        user.setHidden(true);
-                }
-            } catch (Exception e) {
-                cancel();
-                mineSkyVanish.logException(e);
-            }
-        }
-    };
-
-    private BukkitTask forcedInvisibilityTask;
+    private Object activeTask = null;
 
     public EssentialsHook(MineSkyVanish mineSkyVanish) {
         super(mineSkyVanish);
@@ -54,14 +34,52 @@ public class EssentialsHook extends PluginHook {
     @Override
     public void onPluginEnable(Plugin plugin) {
         essentials = (Essentials) plugin;
-        forcedInvisibilityTask = forcedInvisibilityRunnable.runTaskTimer(mineSkyVanish, 0, 100);
-        forcedInvisibilityRunnable.run();
+        startForcedInvisibilityTask();
     }
 
     @Override
     public void onPluginDisable(Plugin plugin) {
         essentials = null;
-        forcedInvisibilityTask.cancel();
+        startForcedInvisibilityTask();
+    }
+
+    private void runInvisibilityCheck() {
+        try {
+            if (!Bukkit.getPluginManager().isPluginEnabled("Essentials")) return;
+            for (UUID uuid : mineSkyVanish.getVanishStateMgr().getOnlineVanishedPlayers()) {
+                Player p = Bukkit.getPlayer(uuid);
+                if (p == null) continue;
+                User user = essentials.getUser(p);
+                if (user == null) continue;
+                if (!user.isHidden()) {
+                    user.setHidden(true);
+                }
+            }
+        } catch (Exception e) {
+            stopForcedInvisibilityTask();
+            mineSkyVanish.logException(e);
+        }
+    }
+
+    private void startForcedInvisibilityTask() {
+            this.activeTask = mineSkyVanish.getServer().getGlobalRegionScheduler()
+                    .runAtFixedRate(mineSkyVanish, task -> runInvisibilityCheck(), 1L, 100L);
+
+        runInvisibilityCheck();
+    }
+
+    private void stopForcedInvisibilityTask() {
+        if (activeTask == null) return;
+
+        if (activeTask instanceof org.bukkit.scheduler.BukkitTask) {
+            ((org.bukkit.scheduler.BukkitTask) activeTask).cancel();
+        } else {
+            try {
+                ((io.papermc.paper.threadedregions.scheduler.ScheduledTask) activeTask).cancel();
+            } catch (Throwable ignored) {
+            }
+        }
+        activeTask = null;
     }
 
     @EventHandler(priority = EventPriority.LOW)
@@ -102,14 +120,14 @@ public class EssentialsHook extends PluginHook {
             if (user == null || !user.isAfk()) return;
             user.setHidden(true);
             preVanishHiddenPlayers.add(e.getPlayer().getUniqueId());
-            mineSkyVanish.getServer().getScheduler().runTaskLater(mineSkyVanish, new Runnable() {
-                @Override
-                public void run() {
-                    if (preVanishHiddenPlayers.remove(e.getPlayer().getUniqueId())) {
-                        user.setHidden(false);
-                    }
+            Runnable delayedTask = () -> {
+                if (preVanishHiddenPlayers.remove(e.getPlayer().getUniqueId())) {
+                    user.setHidden(false);
                 }
-            }, 1);
+            };
+
+            mineSkyVanish.getServer().getGlobalRegionScheduler()
+                    .runDelayed(mineSkyVanish, task -> delayedTask.run(), 1L);
         }
     }
 }

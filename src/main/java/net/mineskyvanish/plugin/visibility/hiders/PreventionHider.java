@@ -8,12 +8,13 @@ import org.bukkit.entity.Player;
 
 public class PreventionHider extends PlayerHider implements Runnable {
 
-    private int taskId;
+    private Object taskId = null;
 
     public PreventionHider(MineSkyVanish plugin) {
         super(plugin);
         if (!BukkitPlayerHidingUtil.isNewPlayerHidingAPISupported(plugin)) {
-            taskId = plugin.getServer().getScheduler().runTaskTimer(plugin, this, 2, 2).getTaskId();
+            taskId = plugin.getServer().getGlobalRegionScheduler()
+                    .runAtFixedRate(plugin, task -> this.run(), 2L, 2L);
         }
         if (plugin.isUseProtocolLib() && plugin.getVersionUtil().isOneDotXOrHigher(8)
                 && !plugin.getVersionUtil().isOneDotXOrHigher(19)
@@ -46,7 +47,8 @@ public class PreventionHider extends PlayerHider implements Runnable {
     public void run() {
         for (Player hidden : playerHiddenFromPlayersMap.keySet()) {
             if (BukkitPlayerHidingUtil.isNewPlayerHidingAPISupported(plugin)) {
-                plugin.getServer().getScheduler().cancelTask(taskId);
+                ((io.papermc.paper.threadedregions.scheduler.ScheduledTask) this.taskId).cancel();
+                taskId = null;
                 return;
             }
             for (Player viewer : playerHiddenFromPlayersMap.get(hidden)) {
