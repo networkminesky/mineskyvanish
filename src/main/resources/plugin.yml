@@ -1,9 +1,11 @@
 name: MineSkyVanish
-version: '1.0.0'
+version: '1.0.0-BETA'
 
 main: net.mineskyvanish.plugin.MineSkyVanish
 api-version: '26.1'
+
 load: POSTWORLD
+
 folia-supported: true
 
 softdepend:
