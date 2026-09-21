@@ -1,8 +1,12 @@
 package net.mineskyvanish.plugin.listeners;
 
+import net.minesky.mineskygameplay.locatorapi.LocatorAPI;
+import net.mineskyvanish.api.vanish.events.PostPlayerHideEvent;
+import net.mineskyvanish.api.vanish.events.PostPlayerShowEvent;
 import net.mineskyvanish.plugin.MineSkyVanish;
 import net.mineskyvanish.plugin.VanishPlayer;
 import net.mineskyvanish.plugin.features.Broadcast;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,8 +14,10 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.*;
+import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
+import net.kyori.adventure.text.Component; // Importação correta adicionada
 
 
 public class GeneralListener implements Listener {
@@ -125,6 +131,53 @@ public class GeneralListener implements Listener {
                 e.setCancelled(true);
         } catch (Exception er) {
             plugin.logException(er);
+        }
+    }
+
+    @EventHandler
+    public void onAdvancementDone(PlayerAdvancementDoneEvent e) {
+        Player p = e.getPlayer();
+        Component message = e.message();
+
+        if (message == null) return;
+        if (!plugin.getVanishStateMgr().isVanished(p.getUniqueId())) return;
+
+        e.message(null);
+        p.sendMessage(message);
+    }
+
+    @EventHandler
+    public void onVanish(PostPlayerHideEvent e) {
+        Player p = e.getPlayer();
+        if (p == null) return;
+
+        String msg = "§a[MSV] " + p.getName() + " ficou invisível.";
+
+        LocatorAPI api = LocatorAPI.get();
+
+        api.hidePlayerGlobally(p);
+
+        for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+            if (onlinePlayer.equals(p))
+                continue;
+            if (onlinePlayer.hasPermission("mineskyvanish.see")) onlinePlayer.sendMessage(msg);
+        }
+    }
+
+    @EventHandler
+    public void onUnvanish(PostPlayerShowEvent e) {
+        Player p = e.getPlayer();
+        if (p == null) return;
+
+        LocatorAPI api = LocatorAPI.get();
+        api.showPlayerGlobally(p);
+
+        String msg = "§a[MSV] " + p.getName() + " reapareceu.";
+
+        for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+            if (onlinePlayer.equals(p))
+                continue;
+            if (onlinePlayer.hasPermission("mineskyvanish.see")) onlinePlayer.sendMessage(msg);
         }
     }
 }

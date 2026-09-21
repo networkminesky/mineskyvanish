@@ -63,7 +63,7 @@ VanishStateFeatures:
   # Jogadores invisíveis devem reaparecer automaticamente
   # ao entrar no servidor caso não tenham mais a permissão 'msv.use'?
   # Não funciona se você usa o GroupManager para permissões
-  CheckPermissionOnLogin: false
+  CheckPermissionOnLogin: true
 
 ############## Recursos de Indicação ###############
 IndicationFeatures:
@@ -97,7 +97,7 @@ MessageOptions:
     # Você pode alterar as mensagens no arquivo messages.yml.
     AnnounceVanishReappearToAdmins: true
     # Devem existir apenas anúncios para administradores e nenhuma mensagem falsa de entrada/saída?
-    SendMessageOnlyToAdmins: false
+    SendMessageOnlyToAdmins: true
     # Devem existir apenas mensagens falsas de entrada/saída e nenhum anúncio para administradores?
     SendMessageOnlyToUsers: false
 

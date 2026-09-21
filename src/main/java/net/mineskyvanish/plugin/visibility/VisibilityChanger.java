@@ -81,14 +81,18 @@ public class VisibilityChanger {
                 plugin.sendMessage(player, "OnVanish", player);
             else
                 plugin.sendMessage(player, "OnVanishCausedByOtherPlayer", player, hiderName);
-            // stop player from being a mob target
+            // stop player from being a mob target (Folia Compatible)
             if (config.getBoolean("InvisibilityFeatures.DisableMobTarget")) {
-                player.getWorld().getEntities().stream()
+                player.getNearbyEntities(50.0, 50.0, 50.0).stream()
                         .filter(ent -> ent instanceof Creature)
                         .map(ent -> (Creature) ent)
-                        .filter(mob -> mob.getTarget() != null)
-                        .filter(mob -> player.getUniqueId().equals(mob.getTarget().getUniqueId()))
-                        .forEach(mob -> mob.setTarget(null));
+                        .forEach(mob -> {
+                            mob.getScheduler().run(plugin, task -> {
+                                if (mob.getTarget() != null && player.getUniqueId().equals(mob.getTarget().getUniqueId())) {
+                                    mob.setTarget(null);
+                                }
+                            }, null);
+                        });
             }
             // call post event
             PostPlayerHideEvent e2 = new PostPlayerHideEvent(player, silent);

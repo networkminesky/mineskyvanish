@@ -26,6 +26,7 @@ dependencies {
     compileOnly("me.clip:placeholderapi:2.12.3")
     compileOnly("net.dmulloy2:ProtocolLib:5.4.0")
     compileOnly("com.github.Jikoo:OpenInv:5.1.12")
+    compileOnly("com.github.networkminesky:mineskygameplay:1.0.2-BETA")
     compileOnly("net.essentialsx:EssentialsX:2.19.0") {
         exclude(group = "org.bstats", module = "bstats-bukkit")
         exclude(group = "org.spigotmc")
