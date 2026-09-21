@@ -1,6 +1,7 @@
 package net.mineskyvanish.plugin.listeners;
 
-import net.minesky.mineskygameplay.locatorapi.LocatorAPI;
+import net.minesky.gameplay.api.MineSkyAPI;
+import net.minesky.gameplay.api.locator.LocatorAPI;
 import net.mineskyvanish.api.vanish.events.PostPlayerHideEvent;
 import net.mineskyvanish.api.vanish.events.PostPlayerShowEvent;
 import net.mineskyvanish.plugin.MineSkyVanish;
@@ -153,9 +154,10 @@ public class GeneralListener implements Listener {
 
         String msg = "§a[MSV] " + p.getName() + " ficou invisível.";
 
-        LocatorAPI api = LocatorAPI.get();
-
-        api.hidePlayerGlobally(p);
+        LocatorAPI api = MineSkyAPI.getLocator();
+        if(api != null) {
+            api.hidePlayerGlobally(p);
+        }
 
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             if (onlinePlayer.equals(p))
